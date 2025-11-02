@@ -22,10 +22,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Upload artifact
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload build output
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .  # upload all files (index.html, css, js, etc.)
+          path: ./build   # 👈 make sure this matches your vite.config.js outDir
 
   deploy:
     runs-on: ubuntu-latest
@@ -33,6 +44,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
