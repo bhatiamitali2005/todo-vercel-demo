@@ -1,9 +1,8 @@
-
-
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// ✅ Correct base for GitHub Pages
 export default defineConfig({
+  base: '/todo-vercel-demo/',
   plugins: [react()],
-  base: '/todo-vercel-demo/', // 👈 change this to your actual repo name
 })
